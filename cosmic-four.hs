@@ -18,6 +18,8 @@ getUnsigned prompt = do
       getUnsigned prompt
 
 display :: [Int] -> IO ()
+display [x, y] = do
+  putStrLn $ show x ++ " is " ++ show y
 display (x : xs @ (y : _)) = do
   putStrLn $ show x ++ " is " ++ show y
   display xs
