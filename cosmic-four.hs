@@ -3,19 +3,17 @@ import Safe (readMay)
 
 main :: IO ()
 main =
-  getUnsigned "Enter a number: " >>= display . cosmicChain
+  getInt "Enter a number: " >>= display . cosmicChain
 
-getUnsigned :: String -> IO Int
-getUnsigned prompt = do
+getInt :: String -> IO Int
+getInt prompt = do
   putStr prompt
   line <- getLine
   case readMay line of
-    Just x  -> if x < 0 then tryAgain prompt else return x
-    Nothing -> tryAgain prompt
-  where
-    tryAgain prompt = do
+    Just x  -> return x
+    Nothing -> do
       putStrLn "That's not a number."
-      getUnsigned prompt
+      getInt prompt
 
 display :: [Int] -> IO ()
 display [x, y] = do
@@ -29,17 +27,17 @@ cosmicChain 4 = [4, 4]
 cosmicChain x = x : cosmicChain (cosmicNext x)
 
 cosmicNext :: Int -> Int
-cosmicNext x = countLetters $ spellUnsigned x
+cosmicNext x = countLetters $ spellInt x
 
 countLetters :: String -> Int
 countLetters = length . filter isAlpha
 
-spellUnsigned :: Int -> String
-spellUnsigned x
-  | x < 0 = error "negative number passed to spellUnsigned"
+spellInt :: Int -> String
+spellInt x
+  | x < 0 = "negative " ++ spellInt (- x)
   | x == 0 = "zero"
   | otherwise =
-    result $ until done next (x, 0 , "")
+    result $ until done next (x, 0, "")
   where
     result (_, _, str) = str
     done (x, _, _) = x == 0
