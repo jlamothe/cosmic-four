@@ -1,8 +1,10 @@
 import Data.Char
 import Safe (readMay)
+import System.IO
 
 main :: IO ()
-main =
+main = do
+  hSetBuffering stdout NoBuffering
   getInt "Enter a number: " >>= display . cosmicChain
 
 getInt :: String -> IO Int
