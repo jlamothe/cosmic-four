@@ -73,7 +73,7 @@ nameExp x = case x of
 
 nameGroup :: Int -> String
 nameGroup x
-  | x <= 13 = case x of
+  | x < 20 = case x of
     1  -> "one"
     2  -> "two"
     3  -> "three"
@@ -87,19 +87,24 @@ nameGroup x
     11 -> "eleven"
     12 -> "twelve"
     13 -> "thirteen"
-  | x < 20 = nameGroup (x - 10) ++ "teen"
-  | x == 20 = "twenty"
-  | x < 30 = "twenty-" ++ nameGroup (x - 20)
-  | x == 30 = "thirty"
-  | x < 40 = "thirty-" ++ nameGroup (x - 30)
-  | x == 40 = "fourty"
-  | x < 50 = "fourty-" ++ nameGroup (x - 40)
-  | x == 50 = "fifty"
-  | x < 60 = "fifty-" ++ nameGroup (x - 50)
+    14 -> "fourteen"
+    15 -> "fifteen"
+    16 -> "sixteen"
+    17 -> "seventeen"
+    18 -> "eighteen"
+    19 -> "nineteen"
   | x < 100 =
     if x `rem` 10 == 0
-    then nameGroup (x `div` 10) ++ "ty"
-    else nameGroup (x `div` 10) ++ "ty-" ++ nameGroup (x `rem` 10)
+    then case x of
+      20 -> "twenty"
+      30 -> "thirty"
+      40 -> "fourty"
+      50 -> "fifty"
+      60 -> "sixty"
+      70 -> "seventy"
+      80 -> "eighty"
+      90 -> "ninety"
+    else nameGroup (x - x `rem` 10) ++ "-" ++ nameGroup (x `rem` 10)
   | x < 1000 =
       nameGroup (x `div` 100) ++ " hundred " ++ nameGroup (x `rem` 100)
 
