@@ -45,14 +45,14 @@ spellInt x
       | x `rem` 1000 == 0 =
         (x `div` 1000, succ exp, str)
       | str == "" =
-        (x `div` 1000, succ exp, nameSegment (x `rem` 1000) exp)
+        (x `div` 1000, succ exp, spellSegment (x `rem` 1000) exp)
       | otherwise =
-        (x `div` 1000, succ exp, nameSegment (x `rem` 1000) exp ++ " " ++ str)
+        (x `div` 1000, succ exp, spellSegment (x `rem` 1000) exp ++ " " ++ str)
 
-nameSegment :: Int -> Int -> String
-nameSegment x exp
-  | exp == 0 = nameGroup x
-  | otherwise = nameGroup x ++ " " ++ nameExp exp
+spellSegment :: Int -> Int -> String
+spellSegment x exp
+  | exp == 0 = spellGroup x
+  | otherwise = spellGroup x ++ " " ++ nameExp exp
 
 nameExp :: Int -> String
 nameExp x = case x of
@@ -67,10 +67,10 @@ nameExp x = case x of
   9  -> "octillion"
   10 -> "nonillion"
   11 -> "decillion"
-  _  -> error "nameGroup doesn't know this number"
+  _  -> error "spellGroup doesn't know this number"
 
-nameGroup :: Int -> String
-nameGroup x
+spellGroup :: Int -> String
+spellGroup x
   | x < 20 = case x of
     1  -> "one"
     2  -> "two"
@@ -102,8 +102,8 @@ nameGroup x
       70 -> "seventy"
       80 -> "eighty"
       90 -> "ninety"
-    else nameGroup (x - x `rem` 10) ++ "-" ++ nameGroup (x `rem` 10)
+    else spellGroup (x - x `rem` 10) ++ "-" ++ spellGroup (x `rem` 10)
   | x < 1000 =
-      nameGroup (x `div` 100) ++ " hundred " ++ nameGroup (x `rem` 100)
+      spellGroup (x `div` 100) ++ " hundred " ++ spellGroup (x `rem` 100)
 
 -- jl
