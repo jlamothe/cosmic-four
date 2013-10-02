@@ -56,10 +56,10 @@ spellInt x
 spellSegment :: Int -> Int -> String
 spellSegment x exp
   | exp == 0 = spellGroup x
-  | otherwise = spellGroup x ++ " " ++ nameExp exp
+  | otherwise = spellGroup x ++ " " ++ spellExp exp
 
-nameExp :: Int -> String
-nameExp x = case x of
+spellExp :: Int -> String
+spellExp x = case x of
   1  -> "thousand"
   2  -> "million"
   3  -> "billion"
@@ -71,7 +71,7 @@ nameExp x = case x of
   9  -> "octillion"
   10 -> "nonillion"
   11 -> "decillion"
-  _  -> error "spellGroup doesn't know this number"
+  _  -> error "spellExp doesn't know this number"
 
 spellGroup :: Int -> String
 spellGroup x
