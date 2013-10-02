@@ -1,3 +1,5 @@
+module Main where
+
 import Data.Char
 import Safe (readMay)
 import System.IO
